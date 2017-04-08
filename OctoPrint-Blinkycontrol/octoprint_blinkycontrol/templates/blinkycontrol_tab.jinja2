@@ -1,6 +1,6 @@
 <div style="padding:5px;">
 	<!--<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"> </script>-->
-	<script>	
+	<script>
 		function callApi(request) {
 			console.log("BlinkyControl says: hey..."+request);
 			var apiPrefix = "/plugin/blinkycontrol/";
@@ -11,7 +11,6 @@
 	<h3>BlinkyControl Manual Controls</h3>
 	<input type="submit" value="On" onclick="callApi('on');">
 	<input type="submit" value="Off" onclick="callApi('off');">
-	<input type="submit" value="Standby" onclick="callApi('standby');">
 
 	<div>
 		<h4>Colors</h4>
@@ -19,13 +18,14 @@
 		<input type="submit" value="Red" onclick="callApi('red');">
 		<input type="submit" value="Green" onclick="callApi('green');">
 		<input type="submit" value="Blue" onclick="callApi('blue');">
-	        <input type="submit" value="Light Blue" onclick="callApi('lightblue');">
+	    <input type="submit" value="Light Blue" onclick="callApi('lightblue');">
 		<input type="submit" value="Purple" onclick="callApi('purple');">
-	        <input type="submit" value="Yellow" onclick="callApi('yellow');">
+	    <input type="submit" value="Yellow" onclick="callApi('yellow');">
 	</div>
-	
+
 	<div>
-		<h4>Animated</h4>
-		<input type="submit" value="Cycle" onclick="callApi('cycleon');">
+		<h4>Intensity</h4>
+		<input type="submit" value="Decrease" onclick="callApi('decreaseintensity');">
+		<input type="submit" value="Increase" onclick="callApi('increaseintensity');">
 	</div>
 </div>

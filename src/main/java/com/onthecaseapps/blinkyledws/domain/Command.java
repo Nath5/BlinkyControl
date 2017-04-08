@@ -9,7 +9,7 @@ public enum Command {
     BLUE,
     LIGHTBLUE,
     PURPLE,
-    YELLO,
-    STANDBY,
-    CYCLEON;
+    YELLOW,
+    INCREASE_INTENSITY,
+    DECREASE_INTENSITY;
 }

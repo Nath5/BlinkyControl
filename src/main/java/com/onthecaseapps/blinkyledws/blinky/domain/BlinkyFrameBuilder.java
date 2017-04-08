@@ -16,6 +16,13 @@ public class BlinkyFrameBuilder {
         }
     }
 
+    public BlinkyFrameBuilder withColor(int[] rgb) {
+        for (int i = 0; i < lightConfigs.length; i++) {
+            lightConfigs[i] = new LightConfig(rgb);
+        }
+        return this;
+    }
+
     public BlinkyFrameBuilder withColor(Color color) {
         for (int i = 0; i < lightConfigs.length; i++) {
             lightConfigs[i] = new LightConfig(color);

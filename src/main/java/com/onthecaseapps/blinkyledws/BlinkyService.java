@@ -11,28 +11,39 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
+import java.util.Arrays;
 
 public class BlinkyService {
     private static final Logger log = LoggerFactory.getLogger(BlinkyService.class);
 
-    public static BlinkyService instance = new BlinkyService();
+    private static BlinkyService instance = new BlinkyService();
 
-    BlinkyTapeController blinkyTapeController = new SerialBlinkyTapeController(BlinkyLedServer.port);
+    private BlinkyTapeController blinkyTapeController = new SerialBlinkyTapeController(BlinkyLedServer.port);
 
-    public static BlinkyService getService() {
+    private int[] currentColor = new int[]{0, 0, 0};
+    private double currentIntensity = 1;
+
+    static BlinkyService getService() {
         return instance;
     }
 
-    public void setAllLightsToColor(Color color) {
-        log.info("Setting lights to color: " + color);
+    private void setAllLightsToColor(Color color) {
+        setAllLightsToColor(new int[]{color.getRed(), color.getGreen(), color.getBlue()});
+    }
+
+    private void setAllLightsToColor(int[] rgb) {
+        log.info("Setting lights to color: " + Arrays.toString(rgb));
         BlinkyFrame frame = new BlinkyFrameBuilder()
-                .withColor(color)
+                .withColor(rgb)
+                .withIntensity(currentIntensity)
                 .build();
 
         blinkyTapeController.renderFrame(frame);
+
+        currentColor = rgb;
     }
 
-    public void turnOffLights() {
+    private void turnOffLights() {
         log.info("Turning all lights off");
         BlinkyFrame frame = new BlinkyFrameBuilder()
                 .off()
@@ -41,16 +52,43 @@ public class BlinkyService {
         blinkyTapeController.renderFrame(frame);
     }
 
-    public void processCommand(CommandRequest commandRequest) {
+    void processCommand(CommandRequest commandRequest) {
         Command command = commandRequest.getCMD();
 
         switch (command) {
             case ON:
-                setAllLightsToColor(Color.white);
+            case WHITE:
+                setAllLightsToColor(Color.WHITE);
                 break;
             case OFF:
                 turnOffLights();
                 break;
+            case BLUE:
+                setAllLightsToColor(Color.BLUE);
+                break;
+            case LIGHTBLUE:
+                setAllLightsToColor(Color.CYAN);
+                break;
+            case RED:
+                setAllLightsToColor(Color.RED);
+                break;
+            case PURPLE:
+                setAllLightsToColor(new int[]{110, 14, 237});
+            case GREEN:
+                setAllLightsToColor(Color.GREEN);
+                break;
+            case YELLOW:
+                setAllLightsToColor(Color.YELLOW);
+                break;
+            case DECREASE_INTENSITY:
+                currentIntensity = Math.max(0, currentIntensity - .2);
+                setAllLightsToColor(currentColor);
+                break;
+            case INCREASE_INTENSITY:
+                currentIntensity = Math.min(1, currentIntensity + .2);
+                setAllLightsToColor(currentColor);
+                break;
+
         }
     }
 

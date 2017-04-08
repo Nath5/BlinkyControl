@@ -27,7 +27,7 @@ public class BlinkyLedServer {
         path("/", () -> {
             before("/*", (q, a) -> log.info("Received api call: " + q.pathInfo()));
 
-            post("/blinky/on", (request, response) -> {
+            post("/blinky/processcommand", (request, response) -> {
                 CommandRequest commandRequest = new GsonBuilder().create().fromJson(request.body(), CommandRequest.class);
                 log.info("Received Command: " + commandRequest);
 
