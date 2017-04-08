@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+            <appender name="allinfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>logs/blinkws.log</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+                    <fileNamePattern>logs/archive/blinkws.%i.log</fileNamePattern>
+                    <minIndex>1</minIndex>
+                    <maxIndex>1</maxIndex>
+                </rollingPolicy>
+                <triggeringPolicy
+                        class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                    <!-- or whenever the file size reaches 100MB -->
+                    <maxFileSize>150MB</maxFileSize>
+                </triggeringPolicy>
+                <encoder>
+                    <pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} %line -
+                        %msg%n
+                    </pattern>
+                </encoder>
+            </appender>
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} %line - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="allinfoLog"/>
+    </root>
+
+</configuration>
